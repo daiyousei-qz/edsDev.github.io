@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><!-- katex -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.js"></script>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--Description-->
+    
+        <meta name="description" content="OverviewIntegral types in C language has two major characteristics:
+
+Width - determines how many continuous bits should form a number
+Signedness - dec">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="Edward Cheng">
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="Representation And Manipulation Of Interger Types in C(Draft)"/>
+    
+
+    <!--Open Graph Description-->
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="Studio No.42"/>
+
+    <!--Type page-->
+    
+        <meta property="og:type" content="article" />
+    
+
+    <!--Page Cover-->
+    
+
+        <meta name="twitter:card" content="summary" />
+    
+
+    <!-- Title -->
+    
+    <title>Representation And Manipulation Of Interger Types in C(Draft) - Studio No.42</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Gallery -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.css" type="text/css" rel="stylesheet" />
+
+    <!-- Google Analytics -->
+    
+
+
+    <!-- favicon --><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+    
+	
+</head>
+
+
+<body>
+
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><!-- Menu -->
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">A Trace Of Thoughts</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                
+                    <li>
+                        <a href="/">
+                            
+                                Home
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/archives">
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://github.com/edsDev">
+                            
+                                <i class="fa fa-github fa-stack-2x"></i>
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+    <!-- Main Content -->
+    <!-- Page Header -->
+<!-- Set your background image for this header in your post front-matter: cover -->
+
+<header class="intro-header" style="background-image: url('/img/home-bg.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <h1>Representation And Manipulation Of Interger Types in C(Draft)</h1>
+                    
+                    <span class="meta">
+                        <!-- Date and Author -->
+                        
+                        2017-09-06
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Tags and categories -->
+           
+                <div class="col-lg-4 col-lg-offset-2 col-md-5 col-md-offset-1 post-tags">
+                    
+                        
+
+
+<a href="/tags/CSAPP/">#CSAPP</a>
+
+
+                    
+                </div>
+                <div class="col-lg-4 col-md-5 post-categories">
+                    
+                        
+
+<a href="/categories/Note/">Note</a>
+
+                    
+                </div>
+            
+
+            <!-- Gallery -->
+            
+
+            <!-- Post Main Content -->
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <h2 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h2><p>Integral types in C language has two major characteristics:</p>
+<ol>
+<li>Width - determines how many continuous bits should form a number</li>
+<li>Signedness - decides how those bits should be intepretted</li>
+</ol>
+<h2 id="Representation"><a href="#Representation" class="headerlink" title="Representation"></a>Representation</h2><h3 id="Mathematical-Model"><a href="#Mathematical-Model" class="headerlink" title="Mathematical Model"></a>Mathematical Model</h3><p>For ease of discussion, we may write any typed integer with width of w as a w-dimensional bit vector $\vec{x} = (x<em>{w-1}, &#x2026;, x</em>{1}, x_{0})$, where $x_i$ denotes the value of the corresponding bit, being either 0 or 1.</p>
+<h3 id="Unsigned-Integer"><a href="#Unsigned-Integer" class="headerlink" title="Unsigned Integer"></a>Unsigned Integer</h3><p>Unsigned integers in C are denoted by exactly its binary written form.<br>For formal definition, we have evaluation function $B2U<em>{w}(\vec{x})$ which maps a bit vector to the number it represents:<br>$$<br>B2U</em>{w}(\vec{x}) = \sum<em>{i=0}^{w-1} x</em>{i} \times 2^{i}<br>$$</p>
+<h3 id="Signed-Integer"><a href="#Signed-Integer" class="headerlink" title="Signed Integer"></a>Signed Integer</h3><p>Signed integers in C are more tricky. It&#x2019;s encoded with a technique called <em>Two&#x2019;s Complement</em>.<br>Evaluation function $B2T<em>{w}(\vec{x})$ describes how it works:<br>$$<br>B2T</em>{w}(\vec{x}) = {-x<em>{w-1} \times 2^{w-1}} + \sum</em>{i=0}^{w-2} x_{i} \times 2^{i}<br>$$</p>
+<p>The highest bit is called sign bit, which decides the sign of the number.</p>
+<p>Notably, there&#x2019;re absolutely other ways to denote a signed integer such as <em>One&#x2019;s Complement</em> and <em>Sign-Magnitute</em>. However, Two&#x2019;s Complement has several advantages:</p>
+<ul>
+<li><strong>Ease Of Implementation</strong><br><br>Almost all arithmetic operations over Two&#x2019;s Complement has identical behavior to that for unsigned integer, which gigantically simplifies the implentation for a computation device. Such representation even allows addition of a signed integer and an unsigned integer, which should yield the correct result as long as you assume both integers have the same signedness. Last but not least, it simplifies casting between different width, which should be explained later.</li>
+<li><strong>Uniqueness</strong><br><br>Unlike One&#x2019;s Complement or Sign-Magnitute, in which the number of zero may have different representations(more specificly, $+0$ and $-0$), Two&#x2019;s Complement encode zero as one unique zero vector. Though such encoding also makes range of representable range unsymmetric, which is not that intuitive.</li>
+<li><strong>Continuity</strong><br><br>This is a brilliant part of the encoding. Two&#x2019;s Complement smartly ensures continuity when overflow occurs(i.e. the smallest negative value equals one plus the largest positive value).</li>
+</ul>
+<h2 id="Manipulation"><a href="#Manipulation" class="headerlink" title="Manipulation"></a>Manipulation</h2><h3 id="Casting-in-Width"><a href="#Casting-in-Width" class="headerlink" title="Casting in Width"></a>Casting in Width</h3><ul>
+<li><strong>Truncating</strong><br\><br>Truncating a number is easy. Simply discard the higher-order bits and the job is done. There should be no loss as long as the old value fit the new width. This is obvious for an unsigned integer, but for signed number, it becomes a little tricky but Two&#x2019;s Complement is still smart enough to handle this.<br>(explaination why Two&#x2019;s Complement works)</br\></li>
+<li><strong>Expansion</strong><br\><ol>
+<li>zero expansion for unsigned<br\><br>fill with zero</br\></li>
+<li>sign expansion for signed<br\><br>fill with sign bit</br\></li>
+</ol>
+</br\></li>
+</ul>
+<h3 id="Casting-in-signedness"><a href="#Casting-in-signedness" class="headerlink" title="Casting in signedness"></a>Casting in signedness</h3><p>Actually, C does nothing but simply change the intepretation over the bit vector. Therefore, the transformation function is really simple:</p>
+<ul>
+<li>Unsigned To Signed:<br>$$ U2T<em>{w}(x) = B2T</em>{w}(U2B_{w}(x)) $$</li>
+<li>Signed To Unsigned:<br>$$ T2U<em>{w}(x) = B2U</em>{w}(T2B_{w}(x)) $$</li>
+</ul>
+<h3 id="Bitwise-Operations"><a href="#Bitwise-Operations" class="headerlink" title="Bitwise Operations"></a>Bitwise Operations</h3><ul>
+<li>And/Or/Xor</li>
+<li>Reverse</li>
+<li>Shift</li>
+</ul>
+<h3 id="Arithmetics-Operations"><a href="#Arithmetics-Operations" class="headerlink" title="Arithmetics Operations"></a>Arithmetics Operations</h3><ul>
+<li>Addition/Subtraction same as binary number<br>  overflow and underflow</li>
+<li>Multiplication/Division</li>
+<li>Modulus</li>
+</ul>
+<h2 id="After-Stories"><a href="#After-Stories" class="headerlink" title="After Stories"></a>After Stories</h2><h2 id="Endian"><a href="#Endian" class="headerlink" title="Endian"></a>Endian</h2>
+
+                
+            </div>
+
+            <!-- Comments -->
+            
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    
+
+
+                </div>
+            
+        </div>
+    </div>
+</article>
+
+    <!-- Footer -->
+    <hr />
+
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+
+                    
+
+                    
+
+                    
+
+                    
+
+                    
+                </ul>
+                <p class="copyright text-muted">&copy; 2017 Edward Cheng<br></p>
+                <p class="copyright text-muted">Original Theme <a target="_blank" href="http://startbootstrap.com/template-overviews/clean-blog/">Clean Blog</a> from <a href="http://startbootstrap.com/" target="_blank">Start Bootstrap</a></p>
+                <p class="copyright text-muted">Adapted for <a target="_blank" href="https://hexo.io/">Hexo</a> by <a href="http://www.codeblocq.com/" target="_blank">Jonathan Klughertz</a></p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+    <!-- After footer scripts -->
+    
+<!-- jQuery -->
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+<!-- Bootstrap -->
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+<!-- Gallery -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+
+<!-- Disqus Comments --><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+
+</body>
+
+</html>
